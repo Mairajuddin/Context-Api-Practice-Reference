@@ -12,7 +12,6 @@
 
 // export default App;
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import AppRoute from "./route/AppRoute.jsx";
 import AppRoute from "../src/AppRouter/AppRoute";
 import "./App.css";
 function App() {

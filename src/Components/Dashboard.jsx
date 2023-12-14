@@ -1,6 +1,5 @@
 // import "../Styles/Components/Dashboard.css";
 import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,31 +10,27 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import HelpIcon from "@mui/icons-material/Help";
 import HomeIcon from "@mui/icons-material/Home";
 import ChatIcon from "@mui/icons-material/Chat";
-import SettingsIcon from "@mui/icons-material/Settings";
 
 import AppBar from "@mui/material/AppBar";
-import { Typography } from "@mui/material";
-// import { Outlet } from "react-router-dom";
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
+import { Outlet, useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState(false);
   const [activeButton, setActiveButton] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleDrawerOpen = () => setOpen(!open);
 
   const handleButtonClick = (buttonId) => {
     setActiveButton(buttonId);
+    if (buttonId === "AddUser") {
+      navigate("/");
+    } else if (buttonId === "UserList") {
+      navigate("/users");
+    }
   };
 
   const drawerWidth = 240;
@@ -79,18 +74,9 @@ export default function Dashboard() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <div className="sidebar-top-icon">
-              <img className="sidebar-image" src="/icons/mstile-144x144.png" />
-              <Typography className="sidebar-top-icon-Typo">Avatar</Typography>
-            </div>
-          </Box>
-        </DrawerHeader>
-
         <div className="sidebar">
           <List className="top-sidebar">
-            {["Users", "Chat", "Option"].map((text, index) => (
+            {["AddUser", "UserList"].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton
                   className={activeButton === text ? "active-button" : ""}
@@ -103,33 +89,6 @@ export default function Dashboard() {
                       <HomeIcon />
                     ) : index === 1 ? (
                       <ChatIcon />
-                    ) : index === 2 ? (
-                      <HomeIcon />
-                    ) : null}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-
-          <List
-            className="down-sidebar"
-            sx={{ flex: 1, overflowY: "auto", marginBottom: 0 }}
-          >
-            {["Setting", "Help", "Spam"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton
-                  className={activeButton === text ? "active-button" : ""}
-                  onClick={() => handleButtonClick(text)}
-                >
-                  <ListItemIcon
-                    className={activeButton === text ? "active-icon" : ""}
-                  >
-                    {index === 0 ? (
-                      <SettingsIcon />
-                    ) : index === 1 ? (
-                      <HelpIcon />
                     ) : index === 2 ? (
                       <HomeIcon />
                     ) : null}
@@ -153,7 +112,7 @@ export default function Dashboard() {
           marginLeft: open ? drawerWidth + "px" : "0px",
         }}
       >
-        {/* <Outlet /> */}
+        <Outlet />
       </Box>
     </Box>
   );

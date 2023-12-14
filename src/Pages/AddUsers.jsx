@@ -57,12 +57,7 @@ const AddUsers = () => {
       errors.address = "Address is Required";
       alert(errors.address);
     }
-    // if (!data.password.trim()) {
-    //   errors.password = "Password is required";
-    // } else if (!isValidPassword(data.password)) {
-    //   errors.password =
-    //     "Password must be at least 8 characters and contain at least one lowercase letter, one uppercase letter, and one special character.";
-    // }
+
     return errors;
   };
 
@@ -71,17 +66,14 @@ const AddUsers = () => {
     return emailRegex.test(email);
   };
 
-  //   const isValidPassword = (password) => {
-  //     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-  //     return passwordRegex.test(password);
-  //   };
-
   return (
     <div
       style={{
         textAlign: "center",
         padding: "20px",
         justifyContent: "center",
+        height: "500px",
+        alignItems: "center",
       }}
     >
       <h2>Add Users</h2>
